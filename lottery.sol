@@ -8,10 +8,16 @@ contract Lottery{
 
     constructor(){
         manager = msg.sender;
+        // challenge 2, make manager always included in the lottery without sending ether
+        players.push(payable(manager));
+
+
     }
 
     receive() external payable{
         require(msg.value == 0.001 ether);
+        //challenge 1, make manager cannot participate in the lottery
+        require(msg.sender != manager);
         players.push(payable(msg.sender));
     }
 
